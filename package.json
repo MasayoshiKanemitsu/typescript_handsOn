@@ -1,0 +1,27 @@
+{
+  "name": "handson",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MasayoshiKanemitsu/typescript_handsOn.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MasayoshiKanemitsu/typescript_handsOn/issues"
+  },
+  "homepage": "https://github.com/MasayoshiKanemitsu/typescript_handsOn#readme",
+  "devDependencies": {
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "private": true
+}
