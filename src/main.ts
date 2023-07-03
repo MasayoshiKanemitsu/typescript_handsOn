@@ -128,3 +128,116 @@ const cbTest2 = (num: number): number => {
   return tmp;
 };
 cbTest(10, cbTest2);
+
+//////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////
+// Class
+////////////////////////////////////////////
+class Person {
+  //クラス内で使用する変数を定義
+  name: string;
+  age: number;
+
+  //初期化（Personというクラスを使う時の設計書の中身はconstructor内に書く）
+  constructor(initName: string, initAge: number) {
+    this.name = initName;
+    this.age = initAge;
+  }
+
+  //メソッド
+  greeting(this: Person) {
+    console.log(this.name);
+  }
+}
+
+let player2: Person = new Person("Mary", 22);
+const player1 = new Person("John", 20);
+console.log(player1);
+player1.greeting();
+
+//privateとpublic（とprotected）
+// Note: protectedは継承先でも参照できる。privateは継承先では参照できないため。
+class Person2 {
+  public name: string; //デフォルトがpublicのため、省略可。
+  private age: number; //privateをつけることでクラス内ではアクセスできるが、クラス外からではアクセスできなくなる。関数を通した時のみ使えるようにするなど。
+
+  constructor(initName: string, initAge: number) {
+    this.name = initName;
+    this.age = initAge;
+  }
+
+  incrementAge(this: Person2) {
+    this.age++;
+  }
+}
+let player3: Person2 = new Person2("Taro", 25);
+
+//初期化の省略記法
+class Person3 {
+  constructor(public name: string, private age: number) {}
+}
+let player4 = new Person3("Jiro", 23);
+
+//readonly
+//Note: readonlyで宣言した変数の値はクラス内でも変更できない。読むだけ。
+class Person4 {
+  constructor(public readonly name: string, private readonly age: number) {}
+}
+let player5: Person4 = new Person4("Smith", 35);
+
+//extends
+//Note: Personを継承してTeacherを作る。(subjectはTeacher固有)
+class Teacher extends Person {
+  //getもsetも関数のように扱える
+  get subject(): string {
+    if (!this._subject) {
+      throw new Error("There is no subject");
+    }
+    return this._subject;
+  }
+  set subject(value: string) {
+    this._subject = value;
+  }
+  constructor(name: string, age: number, private _subject: string) {
+    super(name, age); //extendsを使用するときに絶対必要。継承元の引数を見ているため、引数はすべて入れる必要がある。
+  }
+
+  //継承元と同じ関数を定義することで、上書きができる。
+  greeting(this: Teacher) {
+    console.log(this.subject);
+  }
+}
+const teacher = new Teacher("Baker", 40, "math");
+console.log(teacher.subject);
+teacher.subject = "Music";
+console.log(teacher.subject);
+
+//static
+class tool {
+  static val = "This is static.";
+  static method = () => {
+    console.log(tool.val + "です");
+  };
+}
+console.log(tool.val);
+tool.method();
+
+//Abstract
+//Note：継承にのみ使えるクラス。インスタンスを生成できない。
+abstract class Hoge {
+  constructor(public name: string) {}
+  greeting(this: Hoge) {
+    console.log(this.name);
+  }
+  abstract extra(): void; //ここで定義を保証して、継承先で必ず同じものを作って具体的な機能を盛り込む。
+}
+
+class Fuga extends Hoge {
+  constructor(name: string) {
+    super(name);
+  }
+  extra(): void {
+    console.log("abstract");
+  }
+}
