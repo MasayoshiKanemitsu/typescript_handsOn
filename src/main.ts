@@ -241,3 +241,41 @@ class Fuga extends Hoge {
     console.log("abstract");
   }
 }
+
+////////////////////////////////////////////
+// interface
+////////////////////////////////////////////
+//Note: オブジェクトの型。オブジェクトのみで使えるTypeエイリアス
+//typeエイリアスとほとんど違いがないが、interfaceはオブジェクトのみで使用ができる(逆に言えばオブジェクトにしか使われてないのでわかりやすい)。typeエイリアスは全部いける。
+//interfaceの定義
+interface Human {
+  name: string;
+  age: number;
+  greeting(msg: string): void;
+}
+
+const human: Human = {
+  name: "John",
+  age: 20,
+  greeting(msg: string) {
+    console.log(msg);
+  },
+};
+let developer: Human;
+
+//implements　interfaceをclassに適用させる
+class Developer implements Human {
+  constructor(public name: string, public age: number) {}
+  greeting(msg: string) {
+    console.log(msg);
+  }
+}
+
+//interfaceの継承
+//Note: BBBにAAAを継承する
+interface AAA {
+  firstName: string;
+}
+interface BBB extends AAA {
+  lastName: string;
+}
