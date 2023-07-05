@@ -279,3 +279,74 @@ interface AAA {
 interface BBB extends AAA {
   lastName: string;
 }
+
+////////////////////////////////////////////
+// intersection
+////////////////////////////////////////////
+type Engineer = {
+  name: string;
+  role: string;
+};
+type Blogger = {
+  name: string;
+  follower: number;
+};
+type EngineerBlogger = Engineer & Blogger; //EngineerかつBloggerのtype
+// 上記は右と同じ ⇨ interface EngineerBlogger extends Engineer,Blogger {}
+
+const Taro: EngineerBlogger = {
+  name: "Taro",
+  role: "front-end",
+  follower: 2000,
+};
+
+////////////////////////////////////////////
+// tyoe guard (typeof, in, instanceof)
+////////////////////////////////////////////
+//typeof
+function toUpperCase(x: string | number) {
+  if (typeof x === "string") {
+    //xがstringの場合
+  } else {
+    //xがnumberの場合
+  }
+}
+
+//in
+type Nomado = Engineer & Blogger; //EnginingかつBloggerのtype
+function describeNomado(nomado: Nomado) {
+  console.log(nomado.name);
+
+  //nomadoのオブジェクトに'role'が存在する場合
+  if ("role" in nomado) {
+    console.log(nomado.role);
+  }
+  if ("follower" in nomado) {
+    console.log(nomado.follower);
+  }
+}
+
+//instanceof(classの場合に使える)
+class Dog {
+  speak() {
+    console.log("woof");
+  }
+}
+class Bird {
+  speak() {
+    console.log("chun");
+  }
+  fly() {
+    console.log("flutter");
+  }
+}
+type Pet = Dog | Bird;
+function havePet(pet: Pet) {
+  pet.speak();
+
+  //Birdクラスから生成されたインスタンスの場合は
+  if (pet instanceof Bird) {
+    pet.fly();
+  }
+}
+havePet(new Bird());
