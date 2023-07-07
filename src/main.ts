@@ -350,3 +350,14 @@ function havePet(pet: Pet) {
   }
 }
 havePet(new Bird());
+
+////////////////////////////////////////////
+// 型アサーション（型注釈できない場合、手動で型を上書き）
+////////////////////////////////////////////
+//Note：公式が用意したinterfaceの中に「HTMLElement」があるがかなり曖昧な型。HTMLInputElementはそのタグをより詳細に指定している。
+const input = <HTMLInputElement>document.getElementById("input");
+//const input = document.getElementById("input") as HTMLInputElement; //上記と同じ。JSXではこっちの記法の方がよい
+input.value = "input value";
+
+//Nullではないと指定する場合(末尾に！マーク)
+const input2 = document.getElementById("input")!;
