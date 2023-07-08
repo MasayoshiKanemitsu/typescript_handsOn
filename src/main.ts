@@ -280,6 +280,18 @@ interface BBB extends AAA {
   lastName: string;
 }
 
+//インデックスシグネチャを使った柔軟なinterface作り
+interface CCC {
+  name: string;
+  [key: string]: string; //こうすることで、このタイプの内容を型の参照先に自由に追加できる。ただしこの方法を使用する場合、このinterface内の型は全て同じにしなければならない。
+  //age: number; //ダメ
+}
+const ccc: CCC = {
+  name: "John",
+  role: "Developer",
+  counttry: "Japan",
+};
+
 ////////////////////////////////////////////
 // intersection
 ////////////////////////////////////////////
