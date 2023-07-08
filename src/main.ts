@@ -369,7 +369,7 @@ havePet(new Bird());
 //Note：公式が用意したinterfaceの中に「HTMLElement」があるがかなり曖昧な型。HTMLInputElementはそのタグをより詳細に指定している。
 const input = <HTMLInputElement>document.getElementById("input");
 //const input = document.getElementById("input") as HTMLInputElement; //上記と同じ。JSXではこっちの記法の方がよい
-input.value = "input value";
+// input.value = "input value";
 
 //Nullではないと指定する場合(末尾に！マーク)
 const input2 = document.getElementById("input")!;
@@ -404,7 +404,55 @@ type PeterType = typeof peter; //peterに適用されている型をPeterTypeと
 // ジェネリクス （関数の前に<T>を置く。※括弧内の文字は何でもいいが、一般的にはTを使う）
 ////////////////////////////////////////////
 //Note：型（T）を引数として受け取ることができる
+//型に柔軟性を与える。同じものでも複数の型に対応できるが、使うときに型制約を決める。
 function copy<T>(val: T): T {
   return val;
 }
 console.log(copy<string>("hahaha"));
+
+//extendsを使って型パラメータに制約をつける
+//例：オブジェクトでかつ、nameがありそれはstringである
+function copy2<T extends { name: string }>(val: T): T {
+  return val;
+}
+// console.log(copy2({ name: "John" }));
+
+// keyof
+//Note：keyofの後にはオブジェクトが来る。オブジェクト内の各キー（name,age）によるUnion型が作成される（'name' | 'age'）。
+type K = keyof { name: string; age: number };
+
+//extendsとの組み合わせで使う(UにTのキー一覧がUnion型で作られる)
+function copyK<T extends { name: string; age: number }, U extends keyof T>(val: T, key: U): T {
+  val[key];
+  return val;
+}
+console.log(copyK({ name: "John", age: 30 }, "name"));
+
+//classにextends
+class LightDB<T extends string | number | boolean> {
+  private data: T[] = [];
+  add(item: T) {
+    this.data.push(item);
+  }
+  remove(item: T) {
+    this.data.splice(this.data.indexOf(item), 1);
+  }
+  get() {
+    return this.data;
+  }
+}
+const ldb = new LightDB<string>();
+ldb.add("Apple");
+ldb.add("Orange");
+ldb.add("Banana");
+console.log(ldb.get());
+
+//interfaceにジェネリクスを使う(typeも同様)
+interface TmpGeneric<T> {
+  id: number;
+  data: T[];
+}
+const tmpGeneric: TmpGeneric<number> = {
+  id: 1,
+  data: [30, 31, 32],
+};
