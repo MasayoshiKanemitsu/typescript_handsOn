@@ -383,3 +383,14 @@ interface Member {
 }
 type Look_ID = Member["id"];
 type Look_ID2 = Member["id" | "name"];
+
+////////////////////////////////////////////
+// constアサーション
+////////////////////////////////////////////
+const milk = "milk" as const;
+let drink = milk;
+const tmpArray = [10, 20] as const;
+const peter = {
+  name: "Peter",
+  age: 45,
+} as const;
