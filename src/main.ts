@@ -394,3 +394,8 @@ const peter = {
   name: "Peter",
   age: 45,
 } as const;
+
+////////////////////////////////////////////
+// typeof（値に適用された型を取得する）
+////////////////////////////////////////////
+type PeterType = typeof peter; //peterに適用されている型をPeterTypeとして使う
