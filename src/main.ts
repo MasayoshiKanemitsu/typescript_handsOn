@@ -373,3 +373,13 @@ input.value = "input value";
 
 //Nullではないと指定する場合(末尾に！マーク)
 const input2 = document.getElementById("input")!;
+
+////////////////////////////////////////////
+// LookUp型（interfaceの中にある型を参照）
+////////////////////////////////////////////
+interface Member {
+  id: number;
+  name: string;
+}
+type Look_ID = Member["id"];
+type Look_ID2 = Member["id" | "name"];
