@@ -480,3 +480,10 @@ type MappedTypes3 = {
 type MappedTypes4 = {
   -readonly [P in "a" | "b" | "c"]?: string; //-をつけることで参照先にreadonlyがあっても消せる
 };
+
+//Conditional types
+//Note: 型のif文（三項演算子みたい）
+type ConditionalTypes = "Japan" extends string ? number : boolean;
+//Japan型がstring型に代入できるならnumber型。できなければboolean型。
+//上記の場合、成立するのでnumber型になる。
+//infer Rというのもある。
