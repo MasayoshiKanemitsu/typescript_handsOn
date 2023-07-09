@@ -1,3 +1,4 @@
+import { title } from "process";
 import { hello } from "./module/hello";
 
 // const hello: string = "Hello World!";
@@ -456,3 +457,11 @@ const tmpGeneric: TmpGeneric<number> = {
   id: 1,
   data: [30, 31, 32],
 };
+
+//Utility型
+interface Todo {
+  title: string;
+  text: string;
+}
+type Todoable = Partial<Todo>; //全部TodoのOptionalプロパティになる
+type TodoRead = Readonly<Todo>; //全部Todoのreadonlyになる
