@@ -463,5 +463,20 @@ interface Todo {
   title: string;
   text: string;
 }
-type Todoable = Partial<Todo>; //全部TodoのOptionalプロパティになる
+type Todoable = Partial<Todo>; //全部TodoのOptionalプロパティ（?付き）になる
 type TodoRead = Readonly<Todo>; //全部Todoのreadonlyになる
+
+//Mapped type
+//Note: 型のfor文
+type MappedTypes = {
+  [K in "tomato" | "cucumber" | "pepper"]: K;
+};
+type MappedTypes2 = {
+  [P in "a" | "b" | "c"]: string;
+};
+type MappedTypes3 = {
+  readonly [P in "a" | "b" | "c"]?: string;
+};
+type MappedTypes4 = {
+  -readonly [P in "a" | "b" | "c"]?: string; //-をつけることで参照先にreadonlyがあっても消せる
+};
